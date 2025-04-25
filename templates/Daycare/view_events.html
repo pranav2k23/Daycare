@@ -1,0 +1,38 @@
+{% extends 'daycare/daycare_index.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+<body>
+<div class="container mt-4">
+    <h2 class="text-center">Upcoming Events</h2>
+
+    {% if events %}
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Event Name</th>
+                <th>Details</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ event.event_name }}</td>
+                <td>{{ event.details }}</td>
+                <td>{{ event.date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="text-center text-muted">No events available.</p>
+    {% endif %}
+</div>
+{% endblock %}

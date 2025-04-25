@@ -1,0 +1,36 @@
+{% extends 'teacher/teacher_index.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body><table style="width: 300px;height: 50px"  class="table table-bordered" border="1">  <tr>
+
+  <tr>
+    <th width="42" scope="row">#</th>
+    <td width="189">Performance</td>
+      <td width="189">Category</td>
+    <td width="148">Date</td>
+    <td width="87">Mark</td>
+    <td width="87">&nbsp;</td>
+  </tr>
+ 
+   {% for qw in vvv %}
+     <tr>
+     <td>{{ forloop.counter }}&nbsp;</td>
+     <td>{{ qw.performance1 }}&nbsp;</td>
+       <td>{{ qw.category }}&nbsp;</td>
+         <td>{{ qw.date}}&nbsp;</td>
+         <td>{{ qw.mark}}&nbsp;</td>
+
+    <td><p><a href="/edit_performance/{{ qw.id }}">edit</a></p>
+      <p><a href="/delete_performance/{{ qw.id }}">delete</a></p></td>
+        {% endfor %}
+  </tr>
+</table>
+</body>
+</html>
+{% endblock %}

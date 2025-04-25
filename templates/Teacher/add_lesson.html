@@ -1,0 +1,98 @@
+{% extends 'teacher/teacher_index.html' %}
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Lesson</title>
+    <style>
+        
+
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            font-weight: bold;
+            margin: 10px 0 5px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Add Lesson for {{ student.student_name }}</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="lesson_name">Lesson Name:</label>
+            <input type="text" name="lesson_name" required>
+        
+            <label for="details">Details:</label>
+            <input type="text" name="details" required>
+        
+            <label for="subject">Subject:</label>
+            <input type="text" name="subject" required>
+        
+            <label for="date">Date:</label>
+            <input type="date" name="date" required>
+        
+            <label for="student">Select Student:</label>
+            <select name="student">
+                {% for student in students %}
+                    <option value="{{ student.id }}">{{ student.student_name }}</option>
+                {% endfor %}
+            </select>
+        
+            <label for="file">Upload File:</label>
+            <input type="file" name="file">
+        
+            <button type="submit">Add Lesson</button>
+        </form>
+    </div>
+    
+</body>
+</html>
+{% endblock %}

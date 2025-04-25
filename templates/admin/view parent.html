@@ -1,0 +1,70 @@
+
+
+{% extends 'admin/admin_index.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Parent Information</title>
+    <style>
+        /* Table Styling */
+        .parent-table {
+            width: 100%;
+            max-width: 800px;
+            border-collapse: collapse;
+            margin: 20px auto;
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+        .parent-table th, .parent-table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        .parent-table th {
+            background-color: #eaeaea; /* Light Gray Header */
+            font-weight: bold;
+        }
+        .parent-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .parent-table tr:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="" method="post">
+        <table class="parent-table">
+            <tr>
+                <th>#</th>
+                <th>Parent Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Place</th>
+                <th>Post</th>
+                <th>Pin</th>
+                
+            </tr>
+            <!-- Loop through all parent data -->
+            {% for parent in data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ parent.name }}</td>
+                <td>{{ parent.email }}</td>
+                <td>{{ parent.phone_number }}</td>
+                <td>{{ parent.place }}</td>
+                <td>{{ parent.post }}</td>
+                <td>{{ parent.pincode }}</td>
+                
+                
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'daycare/daycare_index.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+<div class="container mt-5">
+    <h2>Send Enquiry</h2>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label class="form-label">Select Staff:</label>
+            <select name="staff_id" class="form-control" required>
+                <option value="">-- Select Staff --</option>
+                {% for staff in staff_members %}
+                <option value="{{ staff.id }}">{{ staff.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Your Enquiry:</label>
+            <textarea name="enquiry" class="form-control" rows="4" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Send Enquiry</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,206 @@
+
+{% extends 'daycare/daycare_index.html' %}
+{% block body %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Match & Word Scramble</title>
+    <style>
+
+        .game-container {
+            max-width: 900px;
+        }
+        .game-section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        /* Memory Game Styles */
+        #memory-game {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            gap: 10px;
+            margin: 20px auto;
+            width: 440px;
+        }
+        .card {
+            width: 100px;
+            height: 100px;
+            background-color: #2196F3;
+            color: white;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.3s;
+        }
+        .card.flipped {
+            transform: rotateY(180deg);
+            background-color: #4CAF50;
+        }
+        /* Word Scramble Styles */
+        #scrambled-word {
+            font-size: 24px;
+            margin: 20px 0;
+            letter-spacing: 5px;
+        }
+        #word-input {
+            padding: 8px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1976D2;
+        }
+        .message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <!-- Memory Match Game -->
+        <div class="game-section">
+            <h2>Memory Match</h2>
+            <p>Match the pairs!</p>
+            <div id="memory-game"></div>
+            <button onclick="resetMemoryGame()">Reset Game</button>
+            <p class="message" id="memory-message"></p>
+        </div>
+
+        <!-- Word Scramble Game -->
+        <div class="game-section">
+            <h2>Word Scramble</h2>
+            <p>Unscramble the word:</p>
+            <div id="scrambled-word"></div>
+            <input type="text" id="word-input" placeholder="Your guess">
+            <button onclick="checkWord()">Submit</button>
+            <button onclick="resetScramble()">New Word</button>
+            <p class="message" id="scramble-message"></p>
+        </div>
+    </div>
+
+    <script>
+        // Memory Match Game
+        const memoryPairs = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H'];
+        let flippedCards = [];
+        let matchedPairs = 0;
+
+        function initMemoryGame() {
+            shuffleArray(memoryPairs);
+            const game = document.getElementById('memory-game');
+            game.innerHTML = '';
+            memoryPairs.forEach((value, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.dataset.value = value;
+                card.onclick = () => flipCard(card);
+                game.appendChild(card);
+            });
+        }
+
+        function flipCard(card) {
+            if (flippedCards.length < 2 && !card.classList.contains('flipped')) {
+                card.classList.add('flipped');
+                card.textContent = card.dataset.value;
+                flippedCards.push(card);
+
+                if (flippedCards.length === 2) {
+                    setTimeout(checkMatch, 1000);
+                }
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            if (card1.dataset.value === card2.dataset.value) {
+                matchedPairs++;
+                if (matchedPairs === memoryPairs.length / 2) {
+                    document.getElementById('memory-message').textContent = 'You won! All pairs matched!';
+                }
+            } else {
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+                card1.textContent = '';
+                card2.textContent = '';
+            }
+            flippedCards = [];
+        }
+
+        function resetMemoryGame() {
+            matchedPairs = 0;
+            flippedCards = [];
+            document.getElementById('memory-message').textContent = '';
+            initMemoryGame();
+        }
+
+        // Word Scramble Game
+        const words = ['puzzle', 'brain', 'game', 'think', 'solve'];
+        let currentWord = '';
+        let scrambledWord = '';
+
+        function initScramble() {
+            currentWord = words[Math.floor(Math.random() * words.length)];
+            scrambledWord = shuffleWord(currentWord);
+            document.getElementById('scrambled-word').textContent = scrambledWord;
+            document.getElementById('word-input').value = '';
+            document.getElementById('scramble-message').textContent = '';
+        }
+
+        function shuffleWord(word) {
+            const array = word.split('');
+            shuffleArray(array);
+            return array.join('');
+        }
+
+        function checkWord() {
+            const guess = document.getElementById('word-input').value.toLowerCase();
+            const message = document.getElementById('scramble-message');
+            if (guess === currentWord) {
+                message.textContent = 'Correct! Well done!';
+                message.style.color = 'green';
+            } else {
+                message.textContent = 'Try again!';
+                message.style.color = 'red';
+            }
+        }
+
+        function resetScramble() {
+            initScramble();
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Initialize both games
+        initMemoryGame();
+        initScramble();
+    </script>
+</body>
+</html>
+
+{% endblock %}

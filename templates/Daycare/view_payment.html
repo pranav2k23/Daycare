@@ -1,0 +1,39 @@
+{% extends 'daycare/daycare_index.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<form id="form1" name="form1" method="post" action="">
+<table width="397" height="81" border="1">
+  <tr>
+    <th scope="row">#</th>
+    <td>Parent name</td>
+      <td>Student name</td>
+      <td>Contact</td>
+    <td>Amount</td>
+    <td>Payment status</td>
+    <td>Date</td>
+  </tr>
+ {% for kk in kee %}
+     <tr>
+     <td>{{ forloop.counter }}&nbsp;</td>
+     <td>{{ kk.DAYCARE_REQUEST.STUDENT.PARENT.name }}</td>
+         <td>{{ kk.DAYCARE_REQUEST.STUDENT.student_name }}</td>
+         <td>{{ kk.DAYCARE_REQUEST.STUDENT.PARENT.phone_number }}</td>
+     <td>{{ kk.amount }}&nbsp;</td>
+      <td>{{ kk.payment_status }}&nbsp;</td>
+     <td>{{ kk.date }}&nbsp;</td>
+     </tr>
+
+    {% endfor %}
+</table>
+
+</form>
+</body>
+</html>
+{% endblock %}

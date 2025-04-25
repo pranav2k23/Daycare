@@ -1,0 +1,55 @@
+{% extends 'teacher/teacher_index.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<form id="form1" name="form1" method="post" action="">
+<table style="width: 150px;height: 50px"  class="table table-bordered" border="1">  <tr>
+    <tr>
+      <th width="17" scope="row">#</th>
+      <td width="145">Student name</td>
+      <td width="132">Parent name</td>
+         <td width="132">Parent contact</td>
+      <td width="50">Age</td>
+         <td width="50">Gender</td>
+      <td width="115">Image</td>
+      <td width="112">Bio</td>
+        <td width="112">Performance</td>
+        <td width="112">Attendane</td>
+    </tr>
+  {% for ll in lll %}
+     <tr>
+     <td>{{ forloop.counter }}&nbsp;</td>
+     <td>{{ ll.STUDENT.student_name }}&nbsp;</td>
+         <td>{{ ll.STUDENT.PARENT.name }}&nbsp;</td>
+       <td>{{ ll.STUDENT.PARENT.phone_number }}&nbsp;</td>
+     <td>{{ ll.STUDENT.age }}&nbsp;</td>
+     <td>{{ ll.STUDENT.gender }}&nbsp;</td>
+
+
+         <td><img src="{{ ll.STUDENT.photo }}" width="100" height="100"/></td>
+
+         <td>{{ ll.bio }}&nbsp;</td>
+
+
+
+
+
+      <td><p><a href="/view_performance1/{{ ll.id }}">View Performance</a></p>
+      <p><a href="/add_performance/{{ ll.id }}">Add performance</a></p></td>
+
+       <td><p><a href="/view_attendance1/{{ ll.id }}">View attendance</a></p>
+      <p><a href="/add_attendance1/{{ ll.id }}">Add Attendance</a></p></td>
+
+          {% endfor %}
+    </tr>
+  </table>
+</form>
+</body>
+</html>
+{% endblock %}

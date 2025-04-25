@@ -1,0 +1,66 @@
+{% extends 'admin/admin_index.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Daycare Ratings</title>
+    <style>
+        /* Table Styling */
+        .rating-table {
+            width: 100%;
+            max-width: 700px;
+            border-collapse: collapse;
+            margin: 20px auto;
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+        .rating-table th, .rating-table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        .rating-table th {
+            background-color: #eaeaea; /* Light Gray Header */
+            font-weight: bold;
+        }
+        .rating-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .rating-table tr:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="form1" name="form1" method="post" action="">
+        <table class="table rating-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Rating</th>
+                    <th>Date</th>
+                    <th>Parent Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in rat %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        {% for _ in ""|ljust:r.rating %}⭐{% endfor %}  <!-- Displays stars for rating -->
+                        ({{ r.rating }}/5)
+                    </td>
+                    <td>{{ r.date }}</td>
+                    <td>{{ r.PARENT.name }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    </form>
+</body>
+</html>
+{% endblock %}

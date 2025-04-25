@@ -1,0 +1,63 @@
+{% extends 'daycare/daycare_index.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<form action="/add_teacher_post" method="post" enctype="multipart/form-data" name="form1" id="form1">
+<table style="width: 500px;height: 300px"  class="table table-bordered" border="1">
+  <tr>
+    <th width="95" scope="row">Teacher name</th>
+    <td >
+      <input type="text" name="textfield" id="textfield" class="form-control" required/></td>
+  </tr>
+  <tr>
+    <th scope="row">Qualification</th>
+    <td><label for="textfield2"></label>
+      <input type="file" name="qualification" id="textfield2" required/></td>
+  </tr>
+  <tr>
+    <th scope="row">Experience</th>
+    <td >
+      <input type="text" name="textfield3" id="textfield" class="form-control" required/></td>
+  </tr>
+  <tr>
+    <th scope="row">Email</th>
+    <td >
+      <input type="text" name="textfield4" id="textfield" class="form-control" pattern="[a-z0-9._%+\\-]+@[a-z0-9.\\-]+\\.[a-z]{2,}$" required/></td>
+  </tr>
+  <tr>
+    <th scope="row">Phone number</th>
+    <td >
+      <input type="text" name="textfield5" id="textfield" class="form-control" pattern="[7-9]{1}[0-9]{9}" required/></td>
+  </tr>
+     <tr>
+    <th scope="row">Place</th>
+     <td >
+      <input type="text" name="textfield6" id="textfield" class="form-control"  required/></td>
+  </tr>
+  <tr>
+    <th scope="row">ID Proof</th>
+    <td><label for="textfield7"></label>
+      <label for="fileField"></label>
+      <input type="file" name="fileField" id="fileField" /></td>
+  </tr>
+  <tr>
+    <th scope="row">Image</th>
+    <td><label for="textfield8"></label>
+      <label for="fileField2"></label>
+      <input type="file" name="fileField2" id="fileField2" accept="/image/*"  required/></td>
+  </tr>
+  <tr>
+      <th colspan="2" scope="row"><div align="center"> <input type="submit" name="button" id="button" value="ADD" class="btn btn-danger" /></div></th>
+    </tr>
+</table>
+
+</form>
+</body>
+</html>
+{% endblock %}

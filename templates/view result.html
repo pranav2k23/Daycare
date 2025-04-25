@@ -1,0 +1,122 @@
+
+{% extends 'daycare/daycare_index.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+
+        table {
+            width: 60%;
+            margin: auto;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+            font-size: 18px;
+        }
+
+        td {
+            font-size: 16px;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .message {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Uploaded File Details</h2>
+
+    <table>
+        <tr>
+            <th>MP4 Video Summary</th>
+        </tr>
+        <tr>
+            <td>{{ mp }}</td>
+        </tr>
+
+        <tr>
+            <th>Extracted Text from DOCX</th>
+        </tr>
+        <tr>
+            <td>{{ doc2 }}</td>
+        </tr>
+
+
+    </table>
+<div>
+
+    <a href="/download_pdf/?mp={{ mp }}&doc2={{ doc2 }}" class="btn btn-primary">Download PDF</a>
+
+
+</div>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en-US">
+<body>
+
+
+
+
+<div id="google_translate_element"></div>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+</body>
+</html>
+{% endblock %}
+
+
+
+
+

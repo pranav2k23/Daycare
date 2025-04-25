@@ -1,0 +1,99 @@
+{% extends 'teacher/teacher_index.html' %}
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Assigned Students</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .student-table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        .student-table th, .student-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        .student-table th {
+            background-color: rgb(226, 123, 140);
+            color: white;
+        }
+        .student-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .view-button, .add-work-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .view-button:hover, .add-work-button:hover {
+            background-color: #45a049;
+        }
+        .button-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Assigned Students</h1>
+    
+  
+
+    <table class="student-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Student Name</th>
+                <th>Assigned Date</th>
+                <!-- <th>Action</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for assignment in assigned_students %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ assignment.STUDENT.student_name }}</td>
+                <td>{{ assignment.date }}</td>
+                <td colspan="3" style="text-align: center;">
+                    <a href="/add_work/{{ assignment.STUDENT.id }}" class="add-work-button">Add Work</a>
+                </td>  
+                <td colspan="3" style="text-align: center;">
+                    <a href="/view_photo_video/{{ assignment.STUDENT.id }}" class="add-work-button">View photo/video</a>
+                </td>  
+                <td colspan="3" style="text-align: center;">
+                    <a href="/add_lesson" class="add-work-button">Share lessons </a>
+                </td>            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" style="text-align:center;">No students assigned</td>
+            </tr>
+            {% endfor %}
+            <tr>
+               
+            </tr>
+        </tbody>
+    </table>
+    
+</body>
+</html>
+{% endblock %}

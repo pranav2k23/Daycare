@@ -1,0 +1,38 @@
+{% extends 'admin/admin_index.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+
+      <h1>Assign a Teacher to a Student</h1>
+  
+      <form method="POST">
+          {% csrf_token %}
+  
+          <!-- Teacher Selection -->
+          <label for="teacher">Teacher:</label>
+          <select name="textfield" id="teacher" required>
+              {% for teacher in teachers %}
+                  <option value="{{ teacher.id }}">{{ teacher.First_name }}</option>
+              {% endfor %}
+          </select>
+          <br><br>
+  
+          <!-- Date (Day) Selection -->
+          <label for="day">Date (Day):</label>
+          <input type="date" name="textfield2" id="day" required>
+          <br><br>
+  
+        
+          <button type="submit">Assign</button>
+      </form>
+  
+  
+</body>
+</html>
+{% endblock %}

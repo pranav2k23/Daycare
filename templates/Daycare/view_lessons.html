@@ -1,0 +1,85 @@
+{% extends 'daycare/daycare_index.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .lesson-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .lesson-container h3 {
+            margin-top: 0;
+        }
+
+        .lesson-container p {
+            color: #555;
+        }
+
+        /* Button styling */
+        .video-summary-btn {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .video-summary-btn:hover {
+            background-color: #45a049;
+        }
+
+        video {
+            max-width: 100%; /* Make sure the video is responsive */
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>View Lessons</h1>
+
+    {% if lessons %}
+        <div class="lessons-list">
+            {% for lesson in lessons %}
+                <div class="lesson-container">
+                    <h3>{{ lesson.lesson_name }}</h3>
+                    <p><strong>Details:</strong> {{ lesson.details }}</p>
+                    <p><strong>Date:</strong> {{ lesson.date }}</p>
+                    <p><strong>Subject:</strong> {{ lesson.subject }}</p>
+                    
+                    {% if lesson.file %}
+                    <p><strong>Video File:</strong></p>
+                    <!-- Embed video using the video tag with MEDIA_URL -->
+                    <video controls>
+                        <source src="{{ lesson.file }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                {% endif %}
+
+                    <!-- Summarize Video Button as an anchor tag -->
+                    <a href="" class="video-summary-btn">Summarize Video</a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No lessons available.</p>
+    {% endif %}
+{% endblock %}
+

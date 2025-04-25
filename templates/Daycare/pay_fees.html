@@ -1,0 +1,35 @@
+{% extends 'daycare/daycare_index.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Pay Fees</h2>
+
+    <div class="card p-4 shadow">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label"><strong>Student Name:</strong></label>
+                <input type="text" class="form-control" value="{{ fee.student.student_name }}" readonly>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label"><strong>Amount:</strong></label>
+                <input type="text" class="form-control" value="{{ fee.amount }}" readonly>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label"><strong>Month:</strong></label>
+                <input type="text" class="form-control" value="{{ current_month }}" readonly>
+            </div>
+
+            <button type="submit" class="btn btn-success">Confirm Payment</button>
+            <a href="" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

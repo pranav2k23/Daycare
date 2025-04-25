@@ -1,0 +1,84 @@
+{% extends 'admin/admin_index.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Daycare Centers</title>
+    <style>
+        /* Table Styling */
+        .daycare-table {
+            width: 90%;
+            max-width: 900px;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .daycare-table th, .daycare-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        .daycare-table th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+            color: #333;
+        }
+        .daycare-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .daycare-table tr:hover {
+            background-color: #f1f1f1;
+        }
+        /* Action Links */
+        .action-link {
+            display: inline-block;
+            padding: 6px 10px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+        .license {
+            color: #007bff;
+            font-weight: bold;
+        }
+        .view-teachers {
+            background-color: #17a2b8;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <table class="daycare-table">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>License</th>
+            <th>Address</th>
+            <th>Teachers</th>
+        </tr>
+
+        {% for v in view %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ v.name }}</td>
+            <td>{{ v.email }}</td>
+            <td>{{ v.phone }}</td>
+            <td><a class="license" href="{{ v.license }}" target="_blank">License</a></td>
+            <td>{{ v.place }}, {{ v.post }}, {{ v.pin }}</td>
+            <td><a class="view-teachers" href="/view_teacher_in_daycare/{{ v.id }}">View Teachers</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+{% endblock %}

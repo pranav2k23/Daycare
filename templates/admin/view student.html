@@ -1,0 +1,84 @@
+{% extends 'admin/admin_index.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Student Information</title>
+    <style>
+        /* Table Styling */
+        .student-table {
+            width: 100%;
+            max-width: 800px;
+            border-collapse: collapse;
+            margin: 20px auto;
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+        .student-table th, .student-table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        .student-table th {
+            background-color: #eaeaea; /* Light Gray Header */
+            font-weight: bold;
+        }
+        .student-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .student-table tr:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="" method="post">
+        <table class="student-table">
+            <tr>
+                <th>#</th>
+                <th>Student Name</th>
+                <th>Parent Name</th>
+                <!-- <th>Daycare Name</th> -->
+                <th>Contact</th>
+                <th>Place</th>
+                <th>Post</th>
+                <th>Pin</th>
+                <th>Action</th>  <!-- Added Action column -->
+            </tr>
+            {% for k in stu %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ k.student_name }}</td>
+                <td>{{ k.PARENT.name }}</td>
+                <!-- <td>{{ k.DAYCARE.name }}</td> -->
+                <td>{{ k.PARENT.email }}</td>
+                <td>{{ k.PARENT.place }}</td>
+                <td>{{ k.PARENT.post }}</td>
+                <td>{{ k.PARENT.pincode }}</td>
+                
+                <!-- Check if the student has an assignment and if it's marked as "assigned" -->
+                <td>
+                    {% with student_assignments=k.assign_set.first %}
+                        {% if student_assignments %}
+                            {% if student_assignments.assigned_status == "assigned" %}
+                                <span>Assigned</span>
+                            {% else %}
+                                <a href="/assign_teacher/{{ k.id }}">Assign</a>
+                            {% endif %}
+                        {% else %}
+                            <a href="/assign_teacher/{{ k.id }}">Assign</a>
+                        {% endif %}
+                    {% endwith %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+        
+    </form>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="/static/login design/fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="/static/login design/css/style.css">
+    <style type="text/css">
+html { height: 100% }
+body { height: 100%; margin: 0; padding: 0 }
+#gmap { width: 100%; height: 350px; border: double; }
+</style>
+</head>
+<body>
+
+    <div class="main">
+
+        <!-- Sign up form -->
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Register </h2>
+                        <form method="POST" class="register-form" id="register-form" action="/Register_post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account-box"></i></label>
+                                <input type="text" name="textfield" id="name" placeholder="Name" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="place"><i class="zmdi zmdi-pin-drop place-icon"></i></label>
+                                <input type="text" name="textfield2" id="place" placeholder="Place" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="post"><i class="zmdi zmdi-assignment post-icon"></i></label>
+                                <input type="text" name="textfield3" id="post" placeholder="Post" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="pin"><i class="zmdi zmdi-pin pin-icon"></i></label>
+                                <input type="text" name="textfield4" id="pin" placeholder="Pin" pattern="\d{6}" required/>
+                            </div>
+                        
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="email" name="textfield7" id="email" placeholder="Email" required/>
+                            </div>
+                        
+                           
+                            <div class="form-group">
+                                <label for="phone"><i class="zmdi zmdi-phone phone-icon"></i></label>
+                                <input type="text" name="textfield8" id="phone" placeholder="Phone" pattern="[7-9]{1}[0-9]{9}" 
+                                       title="Phone number with 7-9 and remaining 9 digits with 0-9" required/>
+                            </div>
+                        
+                            <div class="form-group">
+                                <label for="password"><i class="zmdi zmdi-lock-outline"></i></label>
+                                <input type="password" name="textfield9" id="password" placeholder="Password" 
+                                        title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required/>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="confirm-password"><i class="zmdi zmdi-lock-outline"></i></label>
+                                <input type="password" name="textfield10" id="confirm-password" placeholder="Confirm Password" 
+                                        title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required/>
+                            </div>
+                        
+                            <!-- Hidden inputs for latitude and longitude (to be set via Google Maps or manually) -->
+                            <input type="hidden" id="textfield6" name="lat">
+                            <input type="hidden" id="textfield7" name="long">
+                        
+                            <div class="form-group">
+                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                                <label for="agree-term" class="label-agree-term">
+                                    <span><span></span></span> I agree all statements in <a href="#" class="term-service">Terms of service</a>
+                                </label>
+                            </div>
+                        
+                            <div class="form-group form-button">
+                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                            </div>
+                        </form>
+                        
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="/static/login design/images/vertical-dedicated-rewarding-fem.jpg" alt="sing up image"></figure>
+                        <a href="/" class="signup-image-link">I am already member</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sing in  Form -->
+{#        <section class="sign-in">#}
+{#            <div class="container">#}
+{#                <div class="signin-content">#}
+{#                    <div class="signin-image">#}
+{#                        <figure><img src="/static/login design/images/signin-image.jpg" alt="sing up image"></figure>#}
+{#                        <a href="#" class="signup-image-link">Create an account</a>#}
+{#                    </div>#}
+{##}
+{#                    <div class="signin-form">#}
+{#                        <h2 class="form-title">Sign In</h2>#}
+{#                        <form method="POST" class="register-form" id="login-form" action="/login_post">#}
+{#                            <div class="form-group">#}
+{#                                <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>#}
+{#                                <input type="text" name="textfield" id="your_name" placeholder="Your Name"/>#}
+{#                            </div>#}
+{#                            <div class="form-group">#}
+{#                                <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>#}
+{#                                <input type="password" name="textfield2" id="your_pass" placeholder="Password"/>#}
+{#                            </div>#}
+{#                            <div class="form-group">#}
+{#                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />#}
+{#                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>#}
+{#                            </div>#}
+{#                            <div class="form-group form-button">#}
+{#                                <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>#}
+{#                            </div>#}
+{#                        </form>#}
+{#                        <div class="social-login">#}
+{#                            <span class="social-label">Or login with</span>#}
+{#                            <ul class="socials">#}
+{#                                <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>#}
+{#                                <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>#}
+{#                                <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>#}
+{#                            </ul>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </section>#}
+
+    </div>
+
+    <!-- JS -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk&sensor=false"></script>
+<script type="text/javascript">
+var map, marker;
+initialize();
+function initialize() {
+    var myLatlng = new google.maps.LatLng(11.868536, 75.363197);
+    var myOptions = {
+        zoom: 7,
+        center: myLatlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById("gmap"), myOptions);
+    marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map
+    });
+
+    google.maps.event.addListener(map, "click", function(event) {
+        var clickLat = event.latLng.lat();
+        var clickLon = event.latLng.lng();
+        document.getElementById("textfield6").value = clickLat.toFixed(5);
+        document.getElementById("textfield7").value = clickLon.toFixed(5);
+        marker.setPosition(new google.maps.LatLng(clickLat, clickLon));
+    });
+
+    GetMylocation();
+}
+
+function GetMylocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+
+function showPosition(position) {
+    var lat = position.coords.latitude;
+    var lon = position.coords.longitude;
+    document.getElementById("textfield6").value = lat;
+    document.getElementById("textfield7").value = lon;
+
+    var myLatlng = new google.maps.LatLng(lat, lon);
+    map.setCenter(myLatlng);
+    map.setZoom(14);
+    marker.setPosition(myLatlng);
+}
+</script>
+    <script src="/static/login design/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/login design/js/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

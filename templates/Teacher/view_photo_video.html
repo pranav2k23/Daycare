@@ -1,0 +1,37 @@
+{% extends 'teacher/teacher_index.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2>Photo/Video for {{ student.student_name }}</h2>
+        {% if files %}
+            <div class="row">
+                {% for f in files %}
+                    <div class="col-md-4 mb-3">
+                        <!-- Adjust the display based on file type -->
+                        {% if ".jpg" in f.file|lower or ".png" in f.file|lower %}
+                            <img src="{{ f.file }}" alt="Uploaded Image" class="img-fluid">
+                        {% elif ".mp4" in f.file|lower %}
+                            <video width="100%" controls>
+                                <source src="{{ f.file }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        {% else %}
+                            <p><a href="{{ f.file }}" target="_blank">View File</a></p>
+                        {% endif %}
+                        <p>Date: {{ f.date }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No photos or videos uploaded for this student.</p>
+        {% endif %}
+    </div>
+    
+{% endblock %}

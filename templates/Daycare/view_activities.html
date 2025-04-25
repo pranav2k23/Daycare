@@ -1,0 +1,46 @@
+
+
+
+
+{% extends 'daycare/daycare_index.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<div class="container">
+    <h2>All Activities</h2>
+
+    {% if activities %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Teacher Name</th>
+                    <th>Activity Name</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for activity in activities %}
+                    <tr>
+                        <td>{{ activity.teacher.teacher_name }}</td>  <!-- Assuming teacher_name is an attribute in teacher model -->
+                        <td>{{ activity.activity_name }}</td>
+                        <td>{{ activity.description }}</td>
+                        <td>{{ activity.date }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No activities found.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>
+{% endblock %}

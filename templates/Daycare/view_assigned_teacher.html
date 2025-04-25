@@ -1,0 +1,75 @@
+{% extends 'daycare/daycare_index.html' %}
+{% block body %}
+<h1 style="text-align: center; margin-top: 20px;">Assigned Teachers</h1>
+
+<style>
+    table {
+        width: 90%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        font-family: Arial, sans-serif;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #ffc0cb; /* Light Pink */
+        color: #333; /* Dark text for contrast */
+    }
+
+    tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    .view-button {
+        background-color: #2196F3;
+        color: white;
+        padding: 6px 12px;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+    .view-button:hover {
+        background-color: #0b7dda;
+    }
+
+    p {
+        text-align: center;
+        font-size: 18px;
+        color: #555;
+    }
+</style>
+
+{% if assignments %}
+    <table>
+        <tr>
+            <th>Number</th>
+            <th>Student Name</th>
+            <th>Teacher Name</th>
+            <th>Assignment Date</th>
+            <th>Assigned Status</th>
+            <th>Actions</th>
+        </tr>
+        {% for assignment in assignments %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ assignment.STUDENT.student_name }}</td>
+                <td>{{ assignment.TEACHER.First_name }}</td>
+                <td>{{ assignment.date }}</td>
+                <td>{{ assignment.assigned_status }}</td>
+                <td>
+                    <a href="/view_works" class="view-button">View Work</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No teachers have been assigned to your students yet.</p>
+{% endif %}
+{% endblock %}

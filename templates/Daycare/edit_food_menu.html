@@ -1,0 +1,51 @@
+{% extends 'daycare/daycare_index.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<form action="/edit_food_menu_post/{{ data.id }}" method="post" enctype="multipart/form-data">
+<table style="width: 300px;height: 200px"  class="table table-bordered" border="1">  <tr>
+    <tr>
+         <th scope="row">Day</th>
+   <td>
+
+
+      <select name="select2" id="select" class="table table-bordered">
+      <option>Monday</option>
+      <option>Tuesday</option>
+      <option>Wednesday</option>
+      <option>Thursday</option>
+      <option>Friday</option>
+      </select></td>
+  </tr>
+  <tr>
+    <th scope="row">Food</th>
+    <td>
+      <input type="text" name="textfield2" id="textfield2" value="{{data.food }}" class="table table-bordered" required/></td>
+  </tr>
+  <tr>
+    <th scope="row">Time</th>
+    <td>
+      
+      
+      <select name="select" id="select" class="table table-bordered">
+      <option>Breakfast</option>
+      <option>Lunch</option>
+      <option>Evening</option>
+      </select></td>
+  </tr>
+ 
+  <tr>
+    <th colspan="2" scope="row"><div align="center"><input type="submit" name="button" id="button" value="edit" class="btn" /></th>
+    </tr>
+</table>
+
+</form>
+</body>
+</html>
+{% endblock %}

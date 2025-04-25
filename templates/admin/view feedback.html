@@ -1,0 +1,62 @@
+{% extends 'admin/admin_index.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Feedback List</title>
+    <style>
+        /* Table Styling */
+        .feedback-table {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .feedback-table th, .feedback-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        .feedback-table th {
+            background-color: #f4f4f4; /* Light Gray Header */
+            font-weight: bold;
+            color: #333;
+        }
+        .feedback-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .feedback-table tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="form1" name="form1" method="post" action="">
+        <table class="feedback-table">
+            <tr>
+                <th>#</th>
+                <th>Feedback</th>
+                <th>Daycare Name</th>
+                <th>Date</th>
+                <th>User Name</th>
+            </tr>
+            {% for m in feed %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ m.feedback }}</td>
+                <td>{{ m.DAYCARE.name }}</td>
+                <td>{{ m.date }}</td>
+                <td>{{ m.PARENT.name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</body>
+</html>
+{% endblock %}

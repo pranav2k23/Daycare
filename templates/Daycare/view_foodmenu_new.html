@@ -1,0 +1,34 @@
+{% extends 'daycare/daycare_index.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+    <tr>
+    <th scope="row">#</th>
+    <td>Day</td>
+    <td>Food</td>
+    <td>Time</td>
+    <td></td>
+
+    </tr>
+    {% for i in data %}
+    <tr>
+        <td>{{ forloop.counter }}&nbsp;</td>
+     <td>{{ i.day }}&nbsp;</td>
+     <td>{{ i.food }}&nbsp;</td>
+     <td>{{ i.info }}&nbsp;</td>
+    <td><p><a href="/edit_food_menu/{{ i.id }}">edit</a></p>
+      <p><a href="delete_food_menu/{{i.id}}">delete</a></p></td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
+{% endblock %}

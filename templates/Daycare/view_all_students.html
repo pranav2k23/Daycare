@@ -1,0 +1,51 @@
+{% extends 'daycare/daycare_index.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body><form action="" method="post">
+  <table style="width: 500px;height: 300px"  class="table table-bordered" border="1">
+  <tr>
+    <th scope="row">#</th>
+    <td>Student name</td>
+    <td>Age</td>
+      <td>Gender</td>
+      <td>photo</td>
+      <td>bio</td>
+      <td>Parent name</td>
+      <td>Attendance & performance</td>
+
+
+
+  </tr>
+   {% for rr in rrrr %}
+     <tr>
+     <td>{{ forloop.counter }}&nbsp;</td>
+     <td>{{ rr.student_name }}&nbsp;</td>
+     <td>{{ rr.age }}&nbsp;</td>
+     <td>{{ rr.gender }}&nbsp;</td>
+
+
+         <td><img src="{{ rr.photo }}" width="100" height="100"/></td>
+
+         <td>{{ rr.bio }}&nbsp;</td>
+         <td>{{ rr.PARENT.name }}&nbsp;</td>
+
+
+
+           <td><a href="/view_attendance/{{ rr.id }}">View attendance</a></td><br>
+     <td><a href="/view_performance/{{ rr.id }}">view performance</a> </td>
+
+
+</tr>
+     {% endfor %}
+</table>
+
+</form>
+</body>
+</html>
+{% endblock %}

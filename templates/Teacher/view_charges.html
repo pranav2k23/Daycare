@@ -1,0 +1,44 @@
+{% extends 'teacher/teacher_index.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<form action="" method="get">
+<table style="width: 300px;height: 50px"  class="table table-bordered" border="1">  <tr>
+
+  <tr>
+    <th width="66" scope="row">#</th>
+    <td width="136">Student Info</td>
+    <td width="157">Parent Info</td>
+      <td width="157">Date</td>
+      <td width="157"></td>
+
+  </tr>
+ {% for wq in wer %}
+     <tr>
+     <td>{{ forloop.counter }}&nbsp;</td>
+     <td>Name:{{ wq.DAYCARE_REQUEST.STUDENT.student_name }}<br>
+        Age:{{ wq.DAYCARE_REQUEST.STUDENT.age }}<br>
+         Gender:{{ wq.DAYCARE_REQUEST.STUDENT.gender }}
+     </td>
+         <td>Name:{{ wq.DAYCARE_REQUEST.STUDENT.PARENT.name }}&nbsp;<br>
+      PH NO: {{ wq.DAYCARE_REQUEST.STUDENT.PARENT.phone_number }}<br>
+          EMAIL: {{ wq.DAYCARE_REQUEST.STUDENT.PARENT.email }}</td>
+
+      <td>{{ wq.date }}&nbsp;</td>
+        <td><p><a href="/send_notification/{{ wq.id }}">Send notification</a></p></td>
+       </tr>
+
+    {% endfor %}
+
+
+</table>
+</form>
+</body>
+</html>
+{% endblock %}

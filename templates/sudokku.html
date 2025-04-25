@@ -1,0 +1,314 @@
+{% extends 'daycare/daycare_index.html' %}
+{% block body %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Finding & Sudoku</title>
+    <style>
+
+        .game-container {
+            max-width: 1000px;
+        }
+        .game-section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+        /* Image Finding Styles */
+        #target-image {
+            width: 120px;
+            height: 120px;
+            margin: 15px auto;
+            border: 3px solid #9C27B0;
+            border-radius: 5px;
+        }
+        #image-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 120px);
+            gap: 10px;
+            margin: 20px auto;
+            width: 520px;
+        }
+        .grid-image {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.2s;
+        }
+        .grid-image:hover {
+            transform: scale(1.03);
+        }
+        .grid-image.correct {
+            border: 3px solid #4CAF50;
+        }
+        .grid-image.wrong {
+            border: 3px solid #f44336;
+            opacity: 0.6;
+        }
+        /* Sudoku Styles */
+        #sudoku-grid {
+            display: grid;
+            grid-template-columns: repeat(9, 40px);
+            gap: 1px;
+            margin: 20px auto;
+            width: 364px;
+            background-color: #ccc;
+        }
+        .sudoku-cell {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #999;
+            text-align: center;
+            font-size: 18px;
+            background-color: white;
+        }
+        .sudoku-cell.fixed {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        .sudoku-cell input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            text-align: center;
+            font-size: 18px;
+        }
+        .sudoku-cell input:focus {
+            outline: none;
+            background-color: #e0f7fa;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #1976D2;
+        }
+        .message {
+            margin: 15px 0;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        #score {
+            font-size: 16px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <!-- Image Finding Game -->
+        <div class="game-section">
+            <h2>Image Finding Game</h2>
+            <p>Find the matching image!</p>
+            <img id="target-image" src="" alt="Target Image">
+            <div id="image-grid"></div>
+            <button onclick="resetImageGame()">New Game</button>
+            <p class="message" id="image-message"></p>
+            <p id="score">Score: <span id="score-value">0</span></p>
+        </div>
+
+        <!-- Sudoku Game -->
+        <div class="game-section">
+            <h2>Sudoku Puzzle</h2>
+            <p>Fill in the grid so each row, column, and 3x3 box contains 1-9</p>
+            <div id="sudoku-grid"></div>
+            <button onclick="resetSudoku()">New Puzzle</button>
+            <button onclick="checkSudoku()">Check Solution</button>
+            <p class="message" id="sudoku-message"></p>
+        </div>
+    </div>
+
+    <script>
+        // Image Finding Game
+        const imageGridSize = 12; // 4x3 grid
+        let targetImageUrl = '';
+        let score = 0;
+
+        function getRandomImageUrl() {
+            return `https://picsum.photos/id/${Math.floor(Math.random() * 1000)}/120/120`;
+        }
+
+        function initImageGame() {
+            const grid = document.getElementById('image-grid');
+            grid.innerHTML = '';
+            const images = [];
+            targetImageUrl = getRandomImageUrl();
+            document.getElementById('target-image').src = targetImageUrl;
+
+            for (let i = 0; i < imageGridSize - 1; i++) {
+                images.push(getRandomImageUrl());
+            }
+            const targetPosition = Math.floor(Math.random() * imageGridSize);
+            images.splice(targetPosition, 0, targetImageUrl);
+
+            images.forEach((url, index) => {
+                const img = document.createElement('img');
+                img.className = 'grid-image';
+                img.src = url;
+                img.dataset.index = index;
+                img.onclick = () => checkImage(img, url);
+                grid.appendChild(img);
+            });
+
+            document.getElementById('image-message').textContent = '';
+            document.getElementById('score-value').textContent = score;
+        }
+
+        function checkImage(img, url) {
+            const message = document.getElementById('image-message');
+            const scoreValue = document.getElementById('score-value');
+
+            if (url === targetImageUrl) {
+                img.classList.add('correct');
+                message.textContent = 'Correct! You found it!';
+                message.style.color = 'green';
+                score += 10;
+                scoreValue.textContent = score;
+                disableImageGrid();
+                setTimeout(initImageGame, 1500);
+            } else {
+                img.classList.add('wrong');
+                message.textContent = 'Wrong! Try again.';
+                message.style.color = 'red';
+                score = Math.max(0, score - 5);
+                scoreValue.textContent = score;
+            }
+        }
+
+        function disableImageGrid() {
+            document.querySelectorAll('.grid-image').forEach(img => {
+                img.onclick = null;
+            });
+        }
+
+        function resetImageGame() {
+            score = 0;
+            initImageGame();
+        }
+
+        // Sudoku Game
+        let sudokuBoard = [];
+
+        function generateSudoku() {
+            // Simple pre-defined solvable puzzle (for simplicity)
+            const basePuzzle = [
+                [5,3,0,0,7,0,0,0,0],
+                [6,0,0,1,9,5,0,0,0],
+                [0,9,8,0,0,0,0,6,0],
+                [8,0,0,0,6,0,0,0,3],
+                [4,0,0,8,0,3,0,0,1],
+                [7,0,0,0,2,0,0,0,6],
+                [0,6,0,0,0,0,2,8,0],
+                [0,0,0,4,1,9,0,0,5],
+                [0,0,0,0,8,0,0,7,9]
+            ];
+            sudokuBoard = basePuzzle.map(row => [...row]);
+            return sudokuBoard;
+        }
+
+        function initSudoku() {
+            const grid = document.getElementById('sudoku-grid');
+            grid.innerHTML = '';
+            const board = generateSudoku();
+
+            for (let i = 0; i < 9; i++) {
+                for (let j = 0; j < 9; j++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'sudoku-cell';
+                    if (board[i][j] !== 0) {
+                        cell.classList.add('fixed');
+                        cell.textContent = board[i][j];
+                    } else {
+                        const input = document.createElement('input');
+                        input.type = 'number';
+                        input.min = 1;
+                        input.max = 9;
+                        input.oninput = () => {
+                            if (input.value > 9) input.value = 9;
+                            if (input.value < 1) input.value = '';
+                            sudokuBoard[i][j] = input.value ? parseInt(input.value) : 0;
+                        };
+                        cell.appendChild(input);
+                    }
+                    grid.appendChild(cell);
+                }
+            }
+            document.getElementById('sudoku-message').textContent = '';
+        }
+
+        function checkSudoku() {
+            const message = document.getElementById('sudoku-message');
+            if (isSudokuValid()) {
+                message.textContent = 'Congratulations! Sudoku solved correctly!';
+                message.style.color = 'green';
+            } else {
+                message.textContent = 'Incorrect solution. Keep trying!';
+                message.style.color = 'red';
+            }
+        }
+
+        function isSudokuValid() {
+            // Check rows
+            for (let i = 0; i < 9; i++) {
+                if (!isValidUnit(sudokuBoard[i])) return false;
+            }
+            // Check columns
+            for (let j = 0; j < 9; j++) {
+                const column = sudokuBoard.map(row => row[j]);
+                if (!isValidUnit(column)) return false;
+            }
+            // Check 3x3 boxes
+            for (let boxRow = 0; boxRow < 3; boxRow++) {
+                for (let boxCol = 0; boxCol < 3; boxCol++) {
+                    const box = [];
+                    for (let i = 0; i < 3; i++) {
+                        for (let j = 0; j < 3; j++) {
+                            box.push(sudokuBoard[boxRow * 3 + i][boxCol * 3 + j]);
+                        }
+                    }
+                    if (!isValidUnit(box)) return false;
+                }
+            }
+            return true;
+        }
+
+        function isValidUnit(unit) {
+            const seen = new Set();
+            for (let num of unit) {
+                if (num === 0) return false; // Incomplete
+                if (seen.has(num)) return false; // Duplicate
+                seen.add(num);
+            }
+            return true;
+        }
+
+        function resetSudoku() {
+            initSudoku();
+        }
+
+        // Initialize both games
+        initImageGame();
+        initSudoku();
+    </script>
+</body>
+</html>
+
+{% endblock %}

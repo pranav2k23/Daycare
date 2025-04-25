@@ -1,0 +1,46 @@
+{% extends 'staff/staff_index.html' %}
+{% block body %}
+<div class="container mt-4">
+    <h2 class="text-center">Student Enquiries</h2>
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Parent Name</th>
+                <th>Enquiry</th>
+                <th>Date</th>
+                <th>Reply</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for enquiry in enquiries %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ enquiry.parent.name }}</td>
+                <td>{{ enquiry.enquiry }}</td>
+                <td>{{ enquiry.date }}</td>
+                <td>
+                    {% if enquiry.reply %}
+                        {{ enquiry.reply }}
+                    {% else %}
+                        <span class="text-danger">No reply yet</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if enquiry.reply == "Pending" %}
+                        <a href="/send_replyy/{{ enquiry.id }}" class="btn btn-primary">Send Reply</a>
+                    {% else %}
+                        <span class="text-success">Replied</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center">No enquiries found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

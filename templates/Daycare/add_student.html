@@ -1,0 +1,68 @@
+{% extends 'daycare/daycare_index.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<style>
+    .form-container {
+        max-width: 600px; /* Adjust this value as per your desired form width */
+        margin: 0 auto; /* This centers the form */
+        padding: 20px;
+        background-color: #f8f9fa; /* Light background color for the form */
+        border-radius: 8px; /* Optional: for rounded corners */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: for form shadow */
+    }
+    .table th, .table td {
+        vertical-align: middle; /* Ensure text is vertically centered */
+    }
+</style>
+</head>
+
+<body>
+    <div class="form-container">
+        <form action="/add_student_post/{{ parent_id }}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table class="table table-bordered" style="width: 100%; height: auto;">
+                <tr>
+                    <th scope="row">Student Name</th>
+                    <td>
+                        <input type="text" name="student_name" id="student_name" class="form-control" required />
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Age</th>
+                    <td>
+                        <input type="text" name="age" id="age" class="form-control" required />
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Gender</th>
+                    <td>
+                        <input type="text" name="gender" id="gender" class="form-control" required />
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Photo (URL or path)</th>
+                    <td>
+                        <input type="file" name="photo" id="photo" class="form-control" required />
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Bio</th>
+                    <td>
+                        <input type="text" name="bio" id="bio" class="form-control" required />
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2" scope="row">
+                        <input type="submit" value="Add Student" class="btn btn-primary" />
+                    </th>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
+{% endblock %}
